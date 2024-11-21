@@ -1,0 +1,22 @@
+/**
+ * Mux5Bit
+ * 5-bit Multiplexer
+ * Inputs:
+ *   a[5], b[5]: Two 5-bit input buses.
+ *   sel: Selection bit.
+ * Output:
+ *   out[5]: 5-bit output bus.
+ */
+CHIP Mux5Bit {
+    IN a[5], b[5], sel;
+    OUT out[5];
+
+    PARTS:
+    // Mux for each bit
+    Mux(a=a[0], b=b[0], sel=sel, out=out[0]);
+    Mux(a=a[1], b=b[1], sel=sel, out=out[1]);
+    Mux(a=a[2], b=b[2], sel=sel, out=out[2]);
+    Mux(a=a[3], b=b[3], sel=sel, out=out[3]);
+    Mux(a=a[4], b=b[4], sel=sel, out=out[4]);
+}
+

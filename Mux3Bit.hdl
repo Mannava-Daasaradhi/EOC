@@ -1,0 +1,19 @@
+/**
+ * Mux3Bit
+ * 3-bit Multiplexer
+ * Inputs:
+ *   a[3], b[3]: Two 3-bit input buses.
+ *   sel: Selection bit.
+ * Output:
+ *   out[3]: 3-bit output bus.
+ */
+CHIP Mux3Bit {
+    IN a[3], b[3], sel;
+    OUT out[3];
+
+    PARTS:
+    // Mux for each bit
+    Mux(a=a[0], b=b[0], sel=sel, out=out[0]);
+    Mux(a=a[1], b=b[1], sel=sel, out=out[1]);
+    Mux(a=a[2], b=b[2], sel=sel, out=out[2]);
+}

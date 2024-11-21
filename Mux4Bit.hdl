@@ -1,0 +1,20 @@
+/**
+ * Mux4Bit
+ * 4-bit Multiplexer
+ * Inputs:
+ *   a[4], b[4]: Two 4-bit input buses.
+ *   sel: Selection bit.
+ * Output:
+ *   out[4]: 4-bit output bus.
+ */
+CHIP Mux4Bit {
+    IN a[4], b[4], sel;
+    OUT out[4];
+
+    PARTS:
+    // Mux for each bit
+    Mux(a=a[0], b=b[0], sel=sel, out=out[0]);
+    Mux(a=a[1], b=b[1], sel=sel, out=out[1]);
+    Mux(a=a[2], b=b[2], sel=sel, out=out[2]);
+    Mux(a=a[3], b=b[3], sel=sel, out=out[3]);
+}

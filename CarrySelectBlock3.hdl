@@ -1,0 +1,19 @@
+
+CHIP CarrySelectBlock3 {
+    IN a[3], b[3], cin;   // Two 3-bit input buses and carry-in
+    OUT sum[3], carry;    // 3-bit sum output and carry-out
+
+    PARTS:
+    // First adder with cin = 0
+    RippleCarryAdder3(a=a, b=b, cin=false, sum=sum0, carry=carry0);
+
+    // Second adder with cin = 1
+    RippleCarryAdder3(a=a, b=b, cin=true, sum=sum1, carry=carry1);
+
+    // Mux3Bit to select the correct 3-bit sum based on cin
+    Mux3Bit(a=sum0, b=sum1, sel=cin, out=sum);
+
+    // Mux to select the correct carry based on cin
+    Mux(a=carry0, b=carry1, sel=cin, out=carry);
+}
+

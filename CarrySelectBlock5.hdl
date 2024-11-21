@@ -1,0 +1,27 @@
+/**
+ * CarrySelectBlock5
+ * 5-bit Carry Select Adder Block
+ * Inputs:
+ *   a[5], b[5]: Two 5-bit input buses.
+ *   cin: Carry-in.
+ * Outputs:
+ *   sum[5]: 5-bit sum output.
+ *   carry: Carry-out.
+ */
+CHIP CarrySelectBlock5 {
+    IN a[5], b[5], cin;   // Two 5-bit input buses and carry-in
+    OUT sum[5], carry;    // 5-bit sum output and carry-out
+
+    PARTS:
+    // First adder with cin = 0
+    RippleCarryAdder5(a=a, b=b, cin=false, sum=sum0, carry=carry0);
+
+    // Second adder with cin = 1
+    RippleCarryAdder5(a=a, b=b, cin=true, sum=sum1, carry=carry1);
+
+    // Mux5Bit to select the correct 5-bit sum based on cin
+    Mux5Bit(a=sum0, b=sum1, sel=cin, out=sum);
+
+    // Mux to select the correct carry based on cin
+    Mux(a=carry0, b=carry1, sel=cin, out=carry);
+}

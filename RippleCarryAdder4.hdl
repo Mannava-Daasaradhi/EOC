@@ -1,0 +1,20 @@
+// This file is part of the Nand2Tetris course.
+// Implements a 4-bit Ripple Carry Adder using Full Adders.
+
+CHIP RippleCarryAdder4 {
+    IN a[4], b[4], cin;  // Two 4-bit input buses and a carry-in
+    OUT sum[4], carry;   // 4-bit sum output and carry-out
+
+    PARTS:
+    // First Full Adder: Adds the least significant bits (LSBs)
+    FullAdder(a=a[0], b=b[0], cin=cin, sum=sum[0], carry=carry0);
+
+    // Second Full Adder: Adds the next bits
+    FullAdder(a=a[1], b=b[1], cin=carry0, sum=sum[1], carry=carry1);
+
+    // Third Full Adder: Adds the next bits
+    FullAdder(a=a[2], b=b[2], cin=carry1, sum=sum[2], carry=carry2);
+
+    // Fourth Full Adder: Adds the most significant bits (MSBs)
+    FullAdder(a=a[3], b=b[3], cin=carry2, sum=sum[3], carry=carry);
+}

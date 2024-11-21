@@ -1,0 +1,31 @@
+// This file is part of the Nand2Tetris course.
+// Implements a Full Adder using only NAND gates.
+
+CHIP FullAdder {
+    IN a, b, cin;       // Three input pins: a, b, and carry-in (cin)
+    OUT sum, carry;     // Two output pins: sum and carry-out
+
+    PARTS:
+    // Compute a XOR b for intermediate sum
+    Nand(a=a, b=b, out=nandAB);
+    Nand(a=a, b=nandAB, out=nandAnandAB);
+    Nand(a=b, b=nandAB, out=nandBnandAB);
+    Nand(a=nandAnandAB, b=nandBnandAB, out=xorAB);
+    // Compute final sum = (a XOR b) XOR cin
+    Nand(a=xorAB, b=cin, out=nandXorABCin);
+    Nand(a=xorAB, b=nandXorABCin, out=nandXorABXorCin1);
+    Nand(a=cin, b=nandXorABCin, out=nandXorABXorCin2);
+    Nand(a=nandXorABXorCin1, b=nandXorABXorCin2, out=sum);
+
+    // Compute a AND b for carry-out part 1
+    Nand(a=a, b=b, out=nandABCarry);
+    Nand(a=nandABCarry, b=nandABCarry, out=andAB);
+
+    // Compute (a XOR b) AND cin for carry-out part 2
+    Nand(a=xorAB, b=cin, out=nandXorABAndCin);
+    Nand(a=nandXorABAndCin, b=nandXorABAndCin, out=andXorABAndCin);
+
+    // Compute final carry = (a AND b) OR ((a XOR b) AND cin)
+    Nand(a=andAB, b=andXorABAndCin, out=nandCarry);
+    Nand(a=nandCarry, b=nandCarry, out=carry);
+}

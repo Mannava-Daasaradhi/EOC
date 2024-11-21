@@ -1,0 +1,16 @@
+/**
+ * 2-bit Multiplexer
+ * Inputs: a[2], b[2], sel
+ * Output: out[2]
+ */
+CHIP Mux2Bit {
+    IN a[2], b[2], sel;
+    OUT out[2];
+
+    PARTS:
+    // First bit
+    Mux(a=a[0], b=b[0], sel=sel, out=out[0]);
+
+    // Second bit
+    Mux(a=a[1], b=b[1], sel=sel, out=out[1]);
+}

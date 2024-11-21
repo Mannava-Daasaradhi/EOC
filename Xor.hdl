@@ -1,0 +1,17 @@
+// This file is part of the Nand2Tetris course.
+// Implements a 2-input XOR gate using only NAND gates.
+
+CHIP Xor {
+    IN a, b;         // Two input pins
+    OUT out;         // One output pin
+
+    PARTS:
+    // First, compute a NAND b
+    Nand(a=a, b=b, out=nandAB);
+    // Compute a NAND (a NAND b)
+    Nand(a=a, b=nandAB, out=nandA_nandAB);
+    // Compute b NAND (a NAND b)
+    Nand(a=b, b=nandAB, out=nandB_nandAB);
+    // Compute the final XOR result
+    Nand(a=nandA_nandAB, b=nandB_nandAB, out=out);
+}

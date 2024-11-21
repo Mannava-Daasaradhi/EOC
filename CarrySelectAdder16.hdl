@@ -1,0 +1,20 @@
+CHIP CarrySelectAdder16 {
+    IN a[16], b[16], cin;  // 16-bit inputs and 1-bit initial carry-in
+    OUT sum[16], carry;     // 16-bit sum and 1-bit carry-out
+
+    PARTS:
+    // Block 1: 2-bit addition
+    CarrySelectBlock2(a=a[0..1], b=b[0..1], cin=cin, sum=sum[0..1], carry=carry1);
+
+    // Block 2: 2-bit addition
+    CarrySelectBlock2(a=a[2..3], b=b[2..3], cin=carry1, sum=sum[2..3], carry=carry2);
+
+    // Block 3: 3-bit addition
+    CarrySelectBlock3(a=a[4..6], b=b[4..6], cin=carry2, sum=sum[4..6], carry=carry3);
+
+    // Block 4: 4-bit addition
+    CarrySelectBlock4(a=a[7..10], b=b[7..10], cin=carry3, sum=sum[7..10], carry=carry4);
+
+    // Block 5: 5-bit addition
+    CarrySelectBlock5(a=a[11..15], b=b[11..15], cin=carry4, sum=sum[11..15], carry=carry);
+}

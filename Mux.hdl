@@ -1,0 +1,20 @@
+// This file is part of the Nand2Tetris course.
+// Implements a 2-to-1 Multiplexer using only NAND gates.
+
+CHIP Mux {
+    IN a, b, sel;       // Two input data lines (a, b) and selection line (sel)
+    OUT out;            // Output of the multiplexer
+
+    PARTS:
+    // First NAND gate for the selection logic
+    Nand(a=sel, b=sel, out=selNand);
+    
+    // Second NAND gate to combine input a and the inverse of sel
+    Nand(a=a, b=selNand, out=nandA);
+    
+    // Third NAND gate to combine input b and sel
+    Nand(a=b, b=sel, out=nandB);
+    
+    // Final NAND gate to combine the two outputs
+    Nand(a=nandA, b=nandB, out=out);
+}

@@ -1,0 +1,14 @@
+// This file is part of the Nand2Tetris course.
+// Implements a 2-input OR gate using only NAND gates.
+
+CHIP Or {
+    IN a, b;         // Two input pins
+    OUT out;         // One output pin
+
+    PARTS:
+    // Compute NOT(a) and NOT(b) using NAND gates
+    Nand(a=a, b=a, out=notA);
+    Nand(a=b, b=b, out=notB);
+    // Compute OR(a, b) using NAND on notA and notB
+    Nand(a=notA, b=notB, out=out);
+}

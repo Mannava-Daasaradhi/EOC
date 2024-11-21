@@ -1,0 +1,17 @@
+// This file is part of the Nand2Tetris course.
+// Implements a 1-to-2 Demultiplexer using only NAND gates.
+
+CHIP Demux {
+    IN in, sel;         // Single input and selection line
+    OUT out0, out1;     // Two output lines
+
+    PARTS:
+    // First NAND gate for the selection logic
+    Nand(a=sel, b=sel, out=selNand);
+
+    // Second NAND gate to combine input and the inverse of sel for out0
+    Nand(a=in, b=selNand, out=out0);
+
+    // Third NAND gate to combine input and sel for out1
+    Nand(a=in, b=sel, out=out1);
+}

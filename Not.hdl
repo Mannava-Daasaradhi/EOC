@@ -1,0 +1,11 @@
+// This file is part of the Nand2Tetris course.
+// Implements a NOT gate using only NAND gates.
+
+CHIP Not {
+    IN in;          // One input pin
+    OUT out;        // One output pin
+
+    PARTS:
+    // Compute NOT(in) using a single NAND gate
+    Nand(a=in, b=in, out=out);
+}

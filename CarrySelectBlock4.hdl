@@ -1,0 +1,28 @@
+/**
+ * CarrySelectBlock4
+ * 4-bit Carry Select Adder Block
+ * Inputs:
+ *   a[4], b[4]: Two 4-bit input buses.
+ *   cin: Carry-in.
+ * Outputs:
+ *   sum[4]: 4-bit sum output.
+ *   carry: Carry-out.
+ */
+CHIP CarrySelectBlock4 {
+    IN a[4], b[4], cin;   // Two 4-bit input buses and carry-in
+    OUT sum[4], carry;    // 4-bit sum output and carry-out
+
+    PARTS:
+    // First adder with cin = 0
+    RippleCarryAdder4(a=a, b=b, cin=false, sum=sum0, carry=carry0);
+
+    // Second adder with cin = 1
+    RippleCarryAdder4(a=a, b=b, cin=true, sum=sum1, carry=carry1);
+
+    // Mux4Bit to select the correct 4-bit sum based on cin
+    Mux4Bit(a=sum0, b=sum1, sel=cin, out=sum);
+
+    // Mux to select the correct carry based on cin
+    Mux(a=carry0, b=carry1, sel=cin, out=carry);
+}
+

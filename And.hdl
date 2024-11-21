@@ -1,0 +1,13 @@
+// This file is part of the Nand2Tetris course.
+// Implements a 2-input AND gate using only NAND gates.
+
+CHIP And {
+    IN a, b;         // Two input pins
+    OUT out;         // One output pin
+
+    PARTS:
+    // First, use a NAND gate to compute a NAND b
+    Nand(a=a, b=b, out=notAnd);
+    // Then invert the result of the NAND to get a AND b
+    Nand(a=notAnd, b=notAnd, out=out);
+}
